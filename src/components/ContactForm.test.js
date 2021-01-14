@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ContactForm from './ContactForm';
 
@@ -16,13 +16,11 @@ test('type in inputs, click submit and values appear on screen', async () => {
     const messageInput = screen.getByLabelText(/message/i);
     const submitBtn = screen.getByRole('button', { name: /submit/i });
 
-    act(() => {
-        userEvent.type(firstNameInput, 'Stone');
-        userEvent.type(lastNameInput, 'Cogswell');
-        userEvent.type(emailInput, 'stone@cogswell.com');
-        userEvent.type(messageInput, 'Hello World!');
-        userEvent.click(submitBtn);
-    });
+    userEvent.type(firstNameInput, 'Stone');
+    userEvent.type(lastNameInput, 'Cogswell');
+    userEvent.type(emailInput, 'stone@cogswell.com');
+    userEvent.type(messageInput, 'Hello World!');
+    userEvent.click(submitBtn);
 
     const newFirstName = await screen.findByText(/Stone/i);
     const newLastName = await screen.findByText(/Cogswell/i);
